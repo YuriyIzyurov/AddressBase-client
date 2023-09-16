@@ -1,0 +1,107 @@
+.component {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: #0066b98f;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.outside__component {
+    position: absolute;
+    display: flex;
+    top: -100px;
+    right: 0;
+    gap: 10px;
+}
+.btn_section {
+    display: flex;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.content__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.content__main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.content__main-middle {
+    display: flex;
+    padding: 0 100px;
+    justify-content: space-between;
+}
+
+.content__main-params{
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+    padding-top: 20px;
+}
+.content__main-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+.content_generator {
+    display: flex;
+}
+.table-data {
+
+}
+.content__dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.content__settings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.content__dropdown-description{
+    position: absolute;
+    top: 10px;
+    font-size: 22px;
+    color: white;
+}
+.content__dropdown-description-rel {
+    font-size: 22px;
+    color: white;
+}
+.progress-bar__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0 20px 20px;
+}
+.progress-bar__wrapper span {
+    font-size: 18px;
+    color: white;
+}
+.progress-bar__bar {
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    height: 20px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #15e000 100px, #e10c0c);
+}
+.progress-bar__bar div {
+    width: 150px;
+    transform: translateX(0px);
+    height: 20px;
+    background-color: white;
+}
