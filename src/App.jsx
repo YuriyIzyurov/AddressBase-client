@@ -51,17 +51,6 @@ function App() {
         hashset.add(result)
         return result
     }
-    const generateOKATOS = () => {
-        const result = []
-        for(let i=0;i<100;i++) {
-            const unique = generateOKATO(checkUnique, OKATOpattern)
-            result.push(unique)
-        }
-        console.log(checkUnique)
-        console.log(result)
-        console.log(countDoubles)
-        return result
-    }
 
 
   return (

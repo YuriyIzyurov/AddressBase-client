@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './weather.css'
-import rainy1 from '../assets/day.svg'
-import rainy2 from '../assets/rainy-2.svg'
-import rainy3 from '../assets/rainy-4.svg'
-import rainy4 from '../assets/rainy-5.svg'
-import rainy5 from '../assets/rainy-6.svg'
-import night from '../assets/night.svg'
+import cloudy from '../assets/cloudy.svg'
+import day from '../assets/day.svg'
+import cloudy3 from '../assets/cloudy-day-3.svg'
+import snowy6 from '../assets/snowy-6.svg'
+import rainy5 from '../assets/rainy-5.svg'
+import rainy4 from '../assets/rainy-4.svg'
+import rainy7 from '../assets/rainy-7.svg'
+
 import {Button, Input} from "antd";
 import {Link} from "react-router-dom";
 const { Search } = Input;
@@ -22,7 +24,7 @@ const WeatherAppComponent = () => {
             const {lon, lat} = data[0]
             const response2 = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=ru&units=metric&appid=${import.meta.env.VITE_API_KEY}`)
             const data2 = await  response2.json()
-            console.log(data2)
+
             setWeatherData(data2)
         }
         try {
@@ -42,7 +44,7 @@ const WeatherAppComponent = () => {
         const {lon, lat} = data[0]
         const response2 = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=ru&units=metric&appid=${import.meta.env.VITE_API_KEY}`)
         const data2 = await  response2.json()
-        console.log(data2)
+
         setWeatherData(data2)
     }
     return (
@@ -65,14 +67,7 @@ const WeatherAppComponent = () => {
         </>
     );
 };
-function LocationAndDate( {data} ){
-    return(
-        <div className="location-and-date">
-            <h1 className="location-and-date__location">Tbilisi</h1>
-            <div>{ data }</div>
-        </div>
-    )
-}
+
 function Temperature({ data }) {
 
     const [image, setImage] = useState(rainy5)
@@ -85,17 +80,19 @@ function Temperature({ data }) {
 
     function pickWeather(code) {
         if (code > 800) {
-            setImage(rainy2);
+            setImage(cloudy);
         } else if (code === 800) {
-            setImage(rainy1);
+            setImage(day);
         } else if (code > 700) {
-            setImage(rainy3);
-        } else if (code > 600 || code === 500) {
+            setImage(cloudy3);
+        } else if (code > 600) {
+            setImage(snowy6);
+        } else if (code > 500) {
             setImage(rainy5);
         } else if (code > 300) {
-            setImage(rainy3);
+            setImage(rainy4);
         } else if (code > 200) {
-            setImage(rainy5);
+            setImage(rainy7);
         }
     }
 
@@ -168,110 +165,6 @@ function Temperature({ data }) {
         </div>
     );
 }
-function Stats( {data} ){
-    return(
-        <div className="current-stats">
-            <div>
-                <div className="current-stats__value">{Math.round(data.daily.temperature_2m_max[0])}&deg;</div>
-                <div className="current-stats__label">High</div>
-                <div className="current-stats__value">{Math.round(data.daily.temperature_2m_min[0])}&deg;</div>
-                <div className="current-stats__label">Low</div>
-            </div>
-            <div>
-                <div className="current-stats__value">{Math.round(data.current_weather.windspeed)}mph</div>
-                <div className="current-stats__label">Wind</div>
-                <div className="current-stats__value">{data.daily.rain_sum[0]}mm</div>
-                <div className="current-stats__label">Rain</div>
-            </div>
-            <div>
-                <div className="current-stats__value">{data.daily.sunrise[0].slice(-5)}</div>
-                <div className="current-stats__label">Sunrise</div>
-                <div className="current-stats__value">{data.daily.sunset[0].slice(-5)}</div>
-                <div className="current-stats__label">Sunset</div>
-            </div>
-        </div>
-    )
-}
-function NextDays( {data} ) {
-    return(
-        <div className="next-5-days">
-            <h2 className="next-5-days__heading">Next 6 days</h2>
-            <div className="next-5-days__container">
 
-                {data.rain_sum.map((el,i)=>{
-                    return <NextDay
-                        key={i}
-                        id={i}
-                        rainsum={el} sunrise={data.sunrise[i]}
-                        sunset={data.sunset[i]}
-                        temperature_2m_max={data.temperature_2m_max[i]}
-                        temperature_2m_min={data.temperature_2m_min[i]}
-                        time={data.time[i]}
-                        windspeed_10m_max={data.windspeed_10m_max[i]}
-                    />
-                })}
-
-            </div>
-        </div>
-    )
-}
-function NextDay( {id,rainsum,temperature_2m_max,sunrise,sunset,temperature_2m_min,windspeed_10m_max,time} ){
-    const [rain, setRain] = useState(rainsum * 10)
-    const [image, setImage] = useState(rainy1)
-
-
-    useEffect(() => {
-        if(rain > 60){
-            setImage(rainy5)
-        }else if(rain > 40){
-            setImage(rainy4)
-        }else if(rain > 20){
-            setImage(rainy3)
-        }else if(rain > 0) {
-            setImage(rainy2)
-        } else {
-            setImage(rainy1)
-        }
-    })
-
-    if(id != 0){
-        return(
-
-            <div className="next-5-days__row">
-
-                <div className="next-5-days__date">
-                    {time.slice(0,4)}
-                    <div className="next-5-days__label"> {time.slice(-5)}</div>
-                </div>
-
-                <div className="next-5-days__low">
-                    {Math.round(temperature_2m_min)}&deg;
-                    <div className="next-5-days__label">Low</div>
-                </div>
-
-                <div className="next-5-days__high">
-                    {Math.round(temperature_2m_max)}&deg;
-                    <div className="next-5-days__label">High</div>
-                </div>
-
-                <div className="next-5-days__icon">
-                    <img src={image} alt="Mostly sunny" />
-                </div>
-
-                <div className="next-5-days__rain">
-                    {rainsum}mm
-                    <div className="next-5-days__label">Rain</div>
-                </div>
-
-                <div className="next-5-days__wind">
-                    {Math.round(windspeed_10m_max)}mph
-                    <div className="next-5-days__label">Wind</div>
-                </div>
-
-            </div>
-        )
-    }
-
-}
 
 export default WeatherAppComponent;
