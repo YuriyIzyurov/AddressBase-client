@@ -19,7 +19,7 @@ const WeatherAppComponent = () => {
 
     useEffect( () => {
         async function fetchData() {
-            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Ivanovo,RU&limit=1&appid=${import.meta.env.VITE_API_KEY}`)
+            const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=Ivanovo,RU&limit=1&appid=${import.meta.env.VITE_API_KEY}`)
             const data = await response.json()
             const {lon, lat} = data[0]
             const response2 = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=ru&units=metric&appid=${import.meta.env.VITE_API_KEY}`)
